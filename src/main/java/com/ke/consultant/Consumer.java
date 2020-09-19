@@ -26,6 +26,8 @@ public class Consumer {
         kafkaConsumer.subscribe(Arrays.asList("student"));
 
         ObjectMapper mapper = new ObjectMapper();
+
+        JDBC jdbc = new JDBC();
         while (true) {
             ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMinutes(1));
             consumerRecords.forEach(consumerRecord -> {
@@ -33,7 +35,7 @@ public class Consumer {
                     StudentBean[] studentBeans = mapper.readValue(consumerRecord.value(), StudentBean[].class);
                     for (StudentBean studentBean : studentBeans) {
                         System.out.println(studentBean.toString());
-                        JDBC.editDB(studentBean.getId(), studentBean.getFirst(), studentBean.getLast(), studentBean.getMail(), "student_replicate");
+                        jdbc.editDB(studentBean.getId(), studentBean.getFirst(), studentBean.getLast(), studentBean.getMail(), "student_replicate");
                     }
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException("JSON error");

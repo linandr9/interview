@@ -12,10 +12,10 @@ public class JDBC {
 
     public void test(String[] args) throws Exception {
         try {
-            createDB();
-            editDB(111111, "John", "Doe", "john.doe@gmail.com", "Student");
-            editDB(222222, "Janee", "Doe", "jane.doe@gmail.com", "Student");
-            editDB(222222, "Jane", "Doe", "jane.doe@gmail.com", "Student");
+//            createDB();
+//            editDB(111111, "John", "Doe", "john.doe@gmail.com", "Student");
+//            editDB(222222, "Janee", "Doe", "jane.doe@gmail.com", "Student");
+//            editDB(222222, "Jane", "Doe", "jane.doe@gmail.com", "Student");
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
@@ -35,7 +35,7 @@ public class JDBC {
         }
     }
 
-    public static void addDB(Integer id, String first, String last, String mail, String table) {
+    public void addDB(Integer id, String first, String last, String mail, String table) {
         String query = "insert into " + table + " values(?,?,?,?)";
         try (Connection con = DriverManager.getConnection(DATABASE_URL, "root", "root");
              PreparedStatement statement = con.prepareStatement(query);) {
@@ -65,7 +65,7 @@ public class JDBC {
         return beans;
     }
 
-    public static void editDB(Integer id, String first, String last, String mail, String table) {
+    public void editDB(Integer id, String first, String last, String mail, String table) {
         String query = "select * from " + table + " where id = ?";
         try (Connection con = DriverManager.getConnection(DATABASE_URL, "root", "root");
              PreparedStatement statement = con.prepareStatement(query)) {
