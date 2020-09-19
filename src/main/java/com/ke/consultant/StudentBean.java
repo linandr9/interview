@@ -1,5 +1,7 @@
 package com.ke.consultant;
 
+import java.util.Objects;
+
 /**
  * DAO for student database
  */
@@ -49,5 +51,21 @@ public class StudentBean {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentBean that = (StudentBean) o;
+        return id.equals(that.id) &&
+                Objects.equals(first, that.first) &&
+                Objects.equals(last, that.last) &&
+                Objects.equals(mail, that.mail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, first, last, mail);
     }
 }
