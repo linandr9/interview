@@ -14,9 +14,9 @@ import java.util.Properties;
 /**
  * Consume messages from topic "channel" and convert json back to Bean
  */
-public class Consumer {
+public class Consumer extends Thread {
 
-    public void consumer() {
+    public void run() {
         Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Producer.KAFKA_BROKER);
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test");

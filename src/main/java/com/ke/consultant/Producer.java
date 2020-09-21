@@ -15,11 +15,11 @@ import java.util.Properties;
 /**
  * Query Student database for all information and publish to topic channel
  */
-public class Producer {
+public class Producer extends Thread {
     public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/Student";
     public static final String KAFKA_BROKER = "localhost:9092";
 
-    public void producer() {
+    public void run() {
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, "root", "root");
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("Select * from Student");) {
